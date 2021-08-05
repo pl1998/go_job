@@ -46,6 +46,7 @@
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/db" />
       <recent name="$PROJECT_DIR$" />
     </key>
   </component>
@@ -57,6 +58,10 @@
     <integration-enabled>true</integration-enabled>
   </component>
   <component name="WindowStateProjectService">
+    <state x="2218" y="267" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1628145952574">
+      <screen x="1440" y="25" width="1920" height="998" />
+    </state>
+    <state x="2218" y="267" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.25.1440.875/1440.25.1920.998@1440.25.1920.998" timestamp="1628145952574" />
     <state x="2152" y="423" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1" timestamp="1628072988950">
       <screen x="1440" y="25" width="1920" height="998" />
     </state>
