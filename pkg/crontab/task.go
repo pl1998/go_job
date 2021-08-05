@@ -39,22 +39,27 @@ func Start() {
 	helpers.CheckErr(result.Error)
 	fmt.Println(TaskList)
 	for _,value := range TaskList  {
-		Id, err := CornCmd.AddFunc(value.Cycle, func() {
-			if value.Type == 1 {
-				//执行一个url
+		if value.Type == 1 {
+			Id, err := CornCmd.AddFunc(value.Cycle, func() {
 				helpers.CurlAPi(value.Cycle)
-			}
-			if value.Type == 2 {
-				//执行一个shell
-			  helpers.ShellExcel(value.Cycle)
-			}
-			if value.Type == 3 {
-				//发送邮件
-			}
-		})
-		helpers.CheckErr(err)
-		//将Id存入数据
-		db.DB.Table("tasks").Where("id=?", value.ID).Update("job_id", Id)
+			})
+			helpers.CheckErr(err)
+			db.DB.Table("tasks").Where("id=?", value.ID).Update("job_id", Id)
+		}
+
+		if value.Type == 2 {
+			//执行一个shell
+			Id, err := CornCmd.AddFunc(value.Cycle, func() {
+			helpers.ShellExcel(value.Cycle)
+			})
+			helpers.CheckErr(err)
+			db.DB.Table("tasks").Where("id=?", value.ID).Update("job_id", Id)
+		}
+		if value.Type == 3 {
+
+		}
+
+
 	}
 
 }
