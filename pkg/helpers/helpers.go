@@ -6,7 +6,7 @@
 package helpers
 
 import (
-	"bytes"
+	"fmt"
 	"os/exec"
 )
 
@@ -18,19 +18,25 @@ func CheckErr(err error) {
 
 //执行这个命令
 func ShellExcel(shell string) {
-	cmd := exec.Command("bin/bash", "-c", shell)
-	var out bytes.Buffer
-	cmd.Stdout = &out
-	err := cmd.Run()
-	CheckErr(err)
+	out := string(Cmd(shell,true))
+	fmt.Println(out)
+
 }
-//执行这个api
-func CurlAPi(api string){
-	cmd := exec.Command("bin/bash", "-c", "curl "+api)
-	var out bytes.Buffer
-	cmd.Stdout = &out
-	err := cmd.Run()
-	CheckErr(err)
+//执行一个命令
+func Cmd(cmd string, shell bool) []byte {
+	if shell {
+		out, err := exec.Command("bash", "-c", cmd).Output()
+		if err != nil {
+			panic("some error found")
+		}
+		return out
+	} else {
+		out, err := exec.Command(cmd).Output()
+		if err != nil {
+			panic("some error found")
+		}
+		return out
+	}
 }
 
 

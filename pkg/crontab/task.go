@@ -35,13 +35,13 @@ func Start() {
 	CornCmd.Start()
 	var TaskList []TaskList
 	//将所有任务放入队列
-	result := db.DB.Table("tasks").Find(&TaskList)
+	result := db.DB.Table("tasks").Where("status=?",1).Find(&TaskList)
 	helpers.CheckErr(result.Error)
 	fmt.Println(TaskList)
 	for _,value := range TaskList  {
 		if value.Type == 1 {
 			Id, err := CornCmd.AddFunc(value.Cycle, func() {
-				helpers.CurlAPi(value.Cycle)
+				helpers.Cmd("curl "+value.Textarea,true)
 			})
 			helpers.CheckErr(err)
 			db.DB.Table("tasks").Where("id=?", value.ID).Update("job_id", Id)
@@ -49,8 +49,9 @@ func Start() {
 
 		if value.Type == 2 {
 			//执行一个shell
+			fmt.Println(value.Cycle)
 			Id, err := CornCmd.AddFunc(value.Cycle, func() {
-			helpers.ShellExcel(value.Cycle)
+				helpers.Cmd(value.Textarea,true)
 			})
 			helpers.CheckErr(err)
 			db.DB.Table("tasks").Where("id=?", value.ID).Update("job_id", Id)
